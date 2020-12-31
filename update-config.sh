@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Self update
+curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/update-config.sh
+
 while [[ $# -gt 0 ]]
 do
 key="$1"
@@ -70,9 +73,6 @@ curl -s https://www.cloudflare.com/ips-v6 >> /tmp/cf_ips
 
 # Allow all traffic from Cloudflare IPs (no ports restriction)
 for cfip in `cat /tmp/cf_ips`; do  /usr/sbin/ufw allow proto tcp from $cfip comment 'Cloudflare IP'; done
-
-# Self update
-curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/update-config.sh
 
 curl -o /usr/local/bin/playbook.yml https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/playbook.yml
 ansible-playbook /usr/local/bin/playbook.yml
