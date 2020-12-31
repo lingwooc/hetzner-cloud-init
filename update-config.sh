@@ -72,4 +72,4 @@ for cfip in `cat /tmp/cf_ips`; do ufw allow proto tcp from $cfip comment 'Cloudf
 curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/update-config.sh
 
 curl -o /usr/local/bin/playbook.yml https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/playbook.yml
-ansible-playbook ansible.yml
+ansible-playbook /usr/local/bin/playbook.yml
