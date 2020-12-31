@@ -8,6 +8,7 @@
       name: lingwood
       comment: Chris Lingwood
       group: sudo
+      shell: /bin/bash
   - name: "Add authorized keys"
     authorized_key:
       user: lingwood
