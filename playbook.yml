@@ -2,7 +2,7 @@
   connection: "local"
   tasks:
   - name: Assure sudo installed
-    apt: pkg="sudo" state=present
+    apt: pkg="sudo" state=absent
   - name: Add the user lingwood
     user:
       name: lingwood
