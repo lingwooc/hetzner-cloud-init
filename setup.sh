@@ -66,3 +66,4 @@ EOF
 
 /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --whitelisted-ips ${WHITELIST_S} ${FLOATING_IPS}
 
+apt install ansible -y

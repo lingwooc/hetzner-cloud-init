@@ -1,0 +1,14 @@
+- hosts: "localhost"
+  connection: "local"
+  tasks:
+  - name: Assure sudo installed
+    apt: pkg="sudo" state=present
+  - name: Add the user lingwood
+    user:
+      name: lingwood
+      comment: Chris Lingwood
+      group: sudo
+  - name: "Add authorized keys"
+    authorized_key:
+      user: lingwood
+      key: https://github.com/lingwooc.keys
