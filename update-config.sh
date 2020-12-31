@@ -32,7 +32,7 @@ cp /etc/current_node_ips /etc/old_node_ips
 echo "" > /etc/current_node_ips
 
 for IP in "${NEW_NODE_IPS[@]}"; do
-  ufw allow from "$IP"
+   /usr/sbin/ufw allow from "$IP"
   echo "$IP" >> /etc/current_node_ips
 done
 
@@ -49,8 +49,11 @@ done
 declare -p REMOVED
 
 for IP in "${REMOVED[@]}"; do
-  ufw deny from "$IP"
+   /usr/sbin/ufw deny from "$IP"
 done
+
+ /usr/sbin/ufw delete allow proto tcp from any to any port 22,80,443
+ /usr/sbin/ufw delete allow proto tcp from any to any port 80,443
 
 FLOATING_IPS=${FLOATING_IPS:-"0"}
 
@@ -66,7 +69,7 @@ curl -s https://www.cloudflare.com/ips-v4 -o /tmp/cf_ips
 curl -s https://www.cloudflare.com/ips-v6 >> /tmp/cf_ips
 
 # Allow all traffic from Cloudflare IPs (no ports restriction)
-for cfip in `cat /tmp/cf_ips`; do ufw allow proto tcp from $cfip comment 'Cloudflare IP'; done
+for cfip in `cat /tmp/cf_ips`; do  /usr/sbin/ufw allow proto tcp from $cfip comment 'Cloudflare IP'; done
 
 # Self update
 curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/update-config.sh
