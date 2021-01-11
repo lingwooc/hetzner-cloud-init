@@ -7,11 +7,11 @@
   - name: Deny incoming
     community.general.ufw:
       policy: deny
-      direction: in
+      direction: incoming
   - name: Allow monitoring
     community.general.ufw:
       policy: allow
-      direction: in
+      direction: incoming
       src: 10.244.0.0/16
   - name: Change ssh port
     lineinfile: dest=/etc/ssh/sshd_config
