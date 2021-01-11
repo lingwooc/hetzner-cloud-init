@@ -30,3 +30,5 @@ EOF
 apt-add-repository ppa:ansible/ansible -y
 apt install ansible ufw gettext-base fail2ban -y
 ansible-galaxy collection install community.general
+
+ufw allow from 10.0.0.2
