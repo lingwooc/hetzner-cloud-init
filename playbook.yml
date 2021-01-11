@@ -10,7 +10,7 @@
       direction: incoming
   - name: Allow monitoring
     community.general.ufw:
-      policy: allow
+      rule: allow
       direction: incoming
       src: 10.244.0.0/16
   - name: Change ssh port
