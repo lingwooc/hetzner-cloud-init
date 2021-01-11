@@ -32,7 +32,7 @@ cp /etc/current_node_ips /etc/old_node_ips
 echo "" > /etc/current_node_ips
 
 for IP in "${NEW_NODE_IPS[@]}"; do
-  /usr/sbin/ufw allow on ens10 from "$IP"
+  /usr/sbin/ufw allow in on ens10 from "$IP"
   echo "$IP" >> /etc/current_node_ips
 done
 
