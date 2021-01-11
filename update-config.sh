@@ -21,6 +21,7 @@ case $key in
 esac
 done
 
+export PORT
 curl -o - https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/playbook.yml | envsubst | cat > /usr/local/bin/playbook.yml
 ansible-playbook /usr/local/bin/playbook.yml
 
