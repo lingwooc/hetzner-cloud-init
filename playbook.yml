@@ -10,9 +10,11 @@
       direction: incoming
   - name: Allow monitoring
     community.general.ufw:
-      rule: allow
-      direction: incoming
       src: 10.244.0.0/16
+      rule: allow
+      port: ${PORT}
+      proto: tcp
+      direction: in
   - name: Change ssh port
     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^Port\s"
