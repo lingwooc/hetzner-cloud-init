@@ -12,7 +12,6 @@
     community.general.ufw:
       src: 10.244.0.0/16
       rule: allow
-      port: ${PORT}
       proto: tcp
       direction: in
   - name: Change ssh port
