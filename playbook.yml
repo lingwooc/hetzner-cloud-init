@@ -52,7 +52,7 @@
       src: 10.0.0.2
       interface: ens10
       proto: tcp
-      direction: incoming
+      direction: in
   handlers:
     - name: Restart ssh
       service: name=ssh state=restarted
