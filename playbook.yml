@@ -1,7 +1,37 @@
 - hosts: "localhost"
   connection: "local"
   tasks:
-  - name: Assure sudo installed
+  - name: Enable UFW
+    community.general.ufw:
+      state: enabled
+  - name: Deny incoming
+    community.general.ufw:
+      policy: deny
+      direction: in
+  - name: Allow monitoring
+    community.general.ufw:
+      policy: allow
+      direction: in
+      src: 10.244.0.0/16
+  - name: Change ssh port
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^Port\s"
+                line="Port ${PORT}"
+                state=present
+    notify: Restart ssh
+  - name: Disallow root SSH access
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PermitRootLogin"
+                line="PermitRootLogin no"
+                state=present
+    notify: Restart ssh
+  - name: Disallow password authentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PasswordAuthentication"
+                line="PasswordAuthentication no"
+                state=present
+    notify: Restart ssh
+  - name: Assure sudo not installed
     apt: pkg="sudo" state=absent
   - name: Add the user lingwood
     user:
@@ -13,3 +43,17 @@
     authorized_key:
       user: lingwood
       key: https://github.com/lingwooc.keys
+  - name: Install jq
+    apt:
+      name: jq 
+      state: present
+  - name: Allow ssh from rancher ${PORT}
+    community.general.ufw:
+      rule: allow
+      port: ${PORT}
+      src: 10.0.0.2
+      interface: ens10
+      proto: tcp
+  handlers:
+    - name: Restart ssh
+      service: name=ssh state=restarted
