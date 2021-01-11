@@ -31,8 +31,6 @@
                 line="PasswordAuthentication no"
                 state=present
     notify: Restart ssh
-  - name: Assure sudo not installed
-    apt: pkg="sudo" state=absent
   - name: Add the user lingwood
     user:
       name: lingwood
