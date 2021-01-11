@@ -27,7 +27,11 @@ chmod +x /usr/local/bin/update-config.sh
 cat <<EOF >> /etc/crontab
 * * * * * root /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --port ${PORT}
 EOF
-apt-add-repository ppa:ansible/ansible -y
+
+
+echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+apt update
 apt install ansible ufw gettext-base fail2ban -y
 ansible-galaxy collection install community.general
 
