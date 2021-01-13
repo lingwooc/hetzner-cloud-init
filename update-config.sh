@@ -21,6 +21,14 @@ case $key in
 esac
 done
 
+ansible=$(apt list | grep ansible | grep 2.9 | wc -l)
+if [ ansible == 0 ]
+then
+  apt update
+  apt install ufw gettext-base -y
+  ansible-galaxy collection install community.general
+fi
+
 export PORT
 curl -o - https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/playbook.yml | envsubst | cat > /usr/local/bin/playbook.yml
 ansible-playbook /usr/local/bin/playbook.yml
