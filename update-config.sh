@@ -22,7 +22,7 @@ esac
 done
 
 ansible=$(apt list | grep ansible | grep 2.9 | wc -l)
-if [ ansible == 0 ]
+if [ "$ansible" == "0" ]
 then
   apt update
   apt install ufw jq gettext-base -y
