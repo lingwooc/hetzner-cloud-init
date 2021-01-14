@@ -24,6 +24,8 @@ done
 ansible=$(which ansible | wc -l)
 if [ "$ansible" == "0" ]
 then
+  echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list
+  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
   apt update
   apt install ansible ufw jq gettext-base -y
   ansible-galaxy collection install community.general
