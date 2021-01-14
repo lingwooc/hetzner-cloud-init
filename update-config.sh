@@ -21,11 +21,11 @@ case $key in
 esac
 done
 
-ansible=$(apt list | grep ansible | grep installed | grep 2.9 | wc -l)
+ansible=$(which ansible | wc -l)
 if [ "$ansible" == "0" ]
 then
   apt update
-  apt install ufw jq gettext-base -y
+  apt install ansible ufw jq gettext-base -y
   ansible-galaxy collection install community.general
 fi
 
