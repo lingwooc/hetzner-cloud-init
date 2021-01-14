@@ -25,7 +25,7 @@ ansible=$(apt list | grep ansible | grep 2.9 | wc -l)
 if [ ansible == 0 ]
 then
   apt update
-  apt install ufw gettext-base -y
+  apt install ufw jq gettext-base -y
   ansible-galaxy collection install community.general
 fi
 
