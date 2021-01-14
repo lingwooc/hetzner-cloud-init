@@ -21,7 +21,7 @@ case $key in
 esac
 done
 
-ansible=$(apt list | grep ansible | grep 2.9 | wc -l)
+ansible=$(apt list | grep ansible | grep installed | grep 2.9 | wc -l)
 if [ "$ansible" == "0" ]
 then
   apt update
