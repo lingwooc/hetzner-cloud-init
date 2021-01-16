@@ -14,18 +14,30 @@
       rule: allow
       proto: tcp
       direction: in
+  - name: Allow I don't know
+    community.general.ufw:
+      src: 10.43.0.0/16
+      rule: allow
+      proto: tcp
+      direction: in
+  - name: Allow I don't know
+    community.general.ufw:
+      src: 10.42.0.0/16
+      rule: allow
+      proto: tcp
+      direction: in
   - name: Change ssh port
     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^Port\s"
                 line="Port ${PORT}"
                 state=present
     notify: Restart ssh
-  # - name: Disallow root SSH access
-  #   lineinfile: dest=/etc/ssh/sshd_config
-  #               regexp="^PermitRootLogin"
-  #               line="PermitRootLogin no"
-  #               state=present
-  #   notify: Restart ssh
+  - name: Disallow root SSH access
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PermitRootLogin"
+                line="PermitRootLogin prohibit-password"
+                state=present
+    notify: Restart ssh
   - name: Disallow password authentication
     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^PasswordAuthentication"
