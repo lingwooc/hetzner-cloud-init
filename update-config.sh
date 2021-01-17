@@ -35,8 +35,7 @@ export PORT
 curl -o - https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/playbook.yml | envsubst | cat > /usr/local/bin/playbook.yml
 ansible-playbook /usr/local/bin/playbook.yml
 
-NEW_NODE_IPS=( $(curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" 'https://api.hetzner.cloud/v1/servers' | jq -r '.servers[].private_net[0].ip') )
-
+NEW_NODE_IPS=( $(curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" 'https://api.hetzner.cloud/v1/servers' | jq -r '.servers[].public_net.ipv4.ip') )
 touch /etc/current_node_ips
 cp /etc/current_node_ips /etc/old_node_ips
 echo "" > /etc/current_node_ips
