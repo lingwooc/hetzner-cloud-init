@@ -64,14 +64,6 @@
     apt:
       name: jq 
       state: present
-  - name: Allow ssh from rancher ${PORT}
-    community.general.ufw:
-      rule: allow
-      port: ${PORT}
-      src: 10.0.0.2
-      interface: ens10
-      proto: tcp
-      direction: in
   handlers:
     - name: Restart ssh
       service: name=ssh state=restarted
