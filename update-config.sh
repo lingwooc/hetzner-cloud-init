@@ -32,6 +32,13 @@ then
 
   curl -o - https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/playbook.yml | envsubst | cat > /usr/local/bin/playbook.yml
   ansible-playbook /usr/local/bin/playbook.yml
+
+  curl -s https://www.cloudflare.com/ips-v4 -o /tmp/cf_ips
+  curl -s https://www.cloudflare.com/ips-v6 >> /tmp/cf_ips
+
+  # Allow traffic from Cloudflare IPs
+  for cfip in `cat /tmp/cf_ips`; do /usr/sbin/ufw allow proto tcp from $cfip to any port 443 comment 'Cloudflare IP'; done
+
 fi
 
 export PORT
@@ -62,12 +69,6 @@ declare -p REMOVED
 for IP in "${REMOVED[@]}"; do
   /usr/sbin/ufw deny from "$IP"
 done
-
-curl -s https://www.cloudflare.com/ips-v4 -o /tmp/cf_ips
-curl -s https://www.cloudflare.com/ips-v6 >> /tmp/cf_ips
-
-# Allow traffic from Cloudflare IPs
-for cfip in `cat /tmp/cf_ips`; do /usr/sbin/ufw allow proto tcp from $cfip to any port 443 comment 'Cloudflare IP'; done
 
 # Self update
 curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/update-config.sh
