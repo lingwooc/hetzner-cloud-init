@@ -70,5 +70,9 @@ for IP in "${REMOVED[@]}"; do
   /usr/sbin/ufw deny from "$IP"
 done
 
+echo -e '{
+  "log-driver": "local"
+}' > /etc/docker/daemon.json
+
 # Self update
 curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/lingwooc/hetzner-cloud-init/master/update-config.sh

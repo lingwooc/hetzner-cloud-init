@@ -28,5 +28,9 @@ cat <<EOF >> /etc/crontab
 * * * * * root /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --port ${PORT}
 EOF
 
+echo -e '{
+  "log-driver": "local"
+}' > /etc/docker/daemon.json
+
 ufw enable
 ufw allow from 10.0.0.2
