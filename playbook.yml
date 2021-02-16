@@ -35,7 +35,7 @@
   - name: Change ssh port
     lineinfile: dest=/etc/ssh/sshd_config
                 regexp="^Port\s"
-                line="Port ${PORT}"
+                line="Port 22"
                 state=present
     notify: Restart ssh
   - name: Disallow root SSH access
