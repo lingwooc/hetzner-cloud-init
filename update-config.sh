@@ -23,9 +23,9 @@ done
 
 export PORT
 
-# ansible=$(which ansible | wc -l)
-# if [ "$ansible" == "0" ]
-# then
+ansible=$(which ansible | wc -l)
+if [ "$ansible" == "0" ]
+then
   echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list
   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
   apt update
@@ -41,7 +41,7 @@ export PORT
   # Allow traffic from Cloudflare IPs
   for cfip in `cat /tmp/cf_ips`; do /usr/sbin/ufw allow proto tcp from $cfip to any port 443 comment 'Cloudflare IP'; done
 
-# fi
+fi
 
 
 
