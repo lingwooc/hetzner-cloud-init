@@ -33,4 +33,4 @@ echo -e '{
 }' > /etc/docker/daemon.json
 
 ufw enable
-ufw allow from 10.0.0.2
+ufw allow from 10.0.0.0/16
