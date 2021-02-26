@@ -28,6 +28,7 @@ cat <<EOF >> /etc/crontab
 * * * * * root /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --port ${PORT}
 EOF
 
+mkdir -p /etc/docker/
 echo -e '{
   "log-driver": "local"
 }' > /etc/docker/daemon.json
