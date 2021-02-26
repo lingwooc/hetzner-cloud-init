@@ -25,7 +25,7 @@ curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/lingwo
 chmod +x /usr/local/bin/update-config.sh
 
 cat <<EOF >> /etc/crontab
-* * * * * root /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --port ${PORT}
+*/5 * * * * root /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --port ${PORT}
 EOF
 
 mkdir -p /etc/docker/
@@ -35,3 +35,4 @@ echo -e '{
 
 yes | ufw enable
 ufw allow from 10.0.0.0/16
+&/usr/local/bin/update-config.sh
