@@ -33,5 +33,5 @@ echo -e '{
   "log-driver": "local"
 }' > /etc/docker/daemon.json
 
-ufw enable
+yes | ufw enable
 ufw allow from 10.0.0.0/16
